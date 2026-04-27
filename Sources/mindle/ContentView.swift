@@ -6,27 +6,31 @@ struct ContentView: View {
 
     var body: some View {
         let c = store.theme.colors
-        // The themed fill needs to extend through the toolbar safe
-        // area so the unified-toolbar's translucent material picks up
-        // the theme color as its backdrop. Without .ignoresSafeArea()
-        // the material bleeds to the window's system-gray backing and
-        // the toolbar reads as a flat dark bar.
         ZStack {
+            // The themed fill needs to extend through the toolbar safe
+            // area so the unified-toolbar's translucent material picks up
+            // the theme color as its backdrop. Without .ignoresSafeArea()
+            // the material bleeds to the window's system-gray backing.
             c.background.ignoresSafeArea()
 
             if store.fileURL == nil {
                 EmptyStateView()
             } else {
-                HSplitView {
-                    if store.showFileBrowser {
-                        FileBrowserSidebar()
-                            .frame(minWidth: 200, idealWidth: 260, maxWidth: 400)
+                VStack(spacing: 0) {
+                    if store.tabs.count >= 2 {
+                        TabBar()
                     }
-                    ReaderPane()
-                        .frame(minWidth: 480)
-                    if store.showAnnotations {
-                        AnnotationsSidebar()
-                            .frame(minWidth: 280, idealWidth: 340, maxWidth: 460)
+                    HSplitView {
+                        if store.showFileBrowser {
+                            FileBrowserSidebar()
+                                .frame(minWidth: 200, idealWidth: 260, maxWidth: 400)
+                        }
+                        ReaderPane()
+                            .frame(minWidth: 480)
+                        if store.showAnnotations {
+                            AnnotationsSidebar()
+                                .frame(minWidth: 280, idealWidth: 340, maxWidth: 460)
+                        }
                     }
                 }
             }
@@ -607,5 +611,93 @@ struct FileTreeRow: View {
             }
             .buttonStyle(.plain)
         }
+    }
+}
+
+// MARK: - Tab bar
+
+struct TabBar: View {
+    @EnvironmentObject var store: DocumentStore
+
+    var body: some View {
+        let c = store.theme.colors
+        // Plain HStack rather than ScrollView: NSScrollView eats the first
+        // mouse-down to disambiguate scroll-vs-tap, which blocked the inner
+        // Buttons from firing. Many-tabs overflow can be revisited later.
+        HStack(spacing: 0) {
+            ForEach(store.tabs) { tab in
+                TabBarItem(tab: tab)
+            }
+            Spacer(minLength: 0)
+        }
+        .background(c.surface.opacity(0.5))
+        .overlay(alignment: .bottom) {
+            Rectangle().fill(c.rule.opacity(0.4)).frame(height: 0.5)
+        }
+    }
+}
+
+struct TabBarItem: View {
+    let tab: DocumentTab
+    @EnvironmentObject var store: DocumentStore
+    @State private var isHovering: Bool = false
+
+    var body: some View {
+        let c = store.theme.colors
+        let isActive = store.activeTabID == tab.id
+        let bg: Color = isActive
+            ? c.background
+            : (isHovering ? c.surface.opacity(0.7) : Color.clear)
+
+        // Two real Buttons side-by-side in an HStack. Button's underlying
+        // NSView opts out of window-drag (mouseDownCanMoveWindow = false),
+        // which onTapGesture does not — so this layout works even if the
+        // tab bar overlaps a window-drag region.
+        HStack(spacing: 0) {
+            Button {
+                store.activate(tabID: tab.id)
+            } label: {
+                HStack(spacing: 6) {
+                    Image(systemName: "doc.text")
+                        .font(.system(size: 10))
+                        .foregroundStyle(isActive ? c.accent : c.muted)
+                    Text(tab.fileURL.lastPathComponent)
+                        .font(.system(size: 12, design: .serif))
+                        .foregroundStyle(isActive ? c.text : c.muted)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
+                    Spacer(minLength: 0)
+                }
+                .padding(.leading, 10)
+                .padding(.vertical, 7)
+                .frame(minWidth: 100, maxWidth: 200, alignment: .leading)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+
+            Button {
+                store.closeTab(id: tab.id)
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 9, weight: .semibold))
+                    .foregroundStyle(c.muted)
+                    .frame(width: 16, height: 16)
+                    .background(
+                        Circle()
+                            .fill(isHovering ? c.muted.opacity(0.18) : Color.clear)
+                    )
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 7)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .opacity(isActive || isHovering ? 1 : 0.6)
+            .help("Close tab")
+        }
+        .background(bg)
+        .overlay(alignment: .trailing) {
+            Rectangle().fill(c.rule.opacity(0.3)).frame(width: 0.5)
+        }
+        .onHover { isHovering = $0 }
     }
 }

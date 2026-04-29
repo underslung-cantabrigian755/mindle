@@ -89,6 +89,17 @@ jobs:
           /usr/bin/codesign "${SIGN_OPTS[@]}" "$FRAMEWORK/Versions/B/Updater.app"
           /usr/bin/codesign "${SIGN_OPTS[@]}" "$FRAMEWORK"
 
+          # Quick Look extension carries its own sandbox entitlements;
+          # sign it inside-out before the parent app so the parent's
+          # signature seals over a notarization-ready extension.
+          EXT="build/Mindle.app/Contents/PlugIns/MindleQuickLook.appex"
+          if [ -e "$EXT" ]; then
+            /usr/bin/codesign --force --options runtime --timestamp \
+              --entitlements Resources/MindleQuickLook.entitlements \
+              --sign "$SIGN_IDENTITY" \
+              "$EXT"
+          fi
+
           /usr/bin/codesign --force --options runtime --timestamp \
             --entitlements Entitlements.plist \
             --sign "$SIGN_IDENTITY" \

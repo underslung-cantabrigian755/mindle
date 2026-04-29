@@ -55,6 +55,17 @@ final class PreviewViewController: NSViewController, QLPreviewingController, WKN
             pendingMarkdown = markdown
             pendingHandler = handler
             webView.loadFileURL(htmlURL, allowingReadAccessTo: htmlURL.deletingLastPathComponent())
+
+            // Hard ceiling: if the JS pipeline stalls (sandbox-restricted
+            // resource fetch, slow render, anything), the system shows a
+            // spinner indefinitely. Fire the completion ourselves at 2s —
+            // whatever the WebView has painted by then becomes the preview.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                guard let self, let pending = self.pendingHandler else { return }
+                pending(nil)
+                self.pendingHandler = nil
+                self.pendingMarkdown = nil
+            }
         } catch {
             handler(error)
         }

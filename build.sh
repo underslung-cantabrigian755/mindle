@@ -14,7 +14,7 @@ BIN="build/${BIN_NAME}"
 # CFBundleShortVersionString matches the appcast entry (critical for
 # Sparkle's version comparison). Untagged builds (local dev,
 # workflow_dispatch on main) fall back to the hardcoded value below.
-SHORT_VERSION_FALLBACK="1.5.0"
+SHORT_VERSION_FALLBACK="1.5.1"
 case "${GITHUB_REF:-}" in
   refs/tags/*)
     SHORT_VERSION="${GITHUB_REF#refs/tags/v}"
@@ -88,8 +88,13 @@ mkdir -p "$EXT_BUNDLE/Contents/MacOS"
 mkdir -p "$EXT_BUNDLE/Contents/Resources"
 cp "$EXT_BIN" "$EXT_BUNDLE/Contents/MacOS/MindleQuickLook"
 # Reuse the same web pipeline the main app renders with — markdown-it,
-# highlight.js, mermaid, the lot. Quick Look previews look identical.
+# highlight.js, KaTeX. Mermaid is stripped from the Quick Look bundle:
+# it hangs the sandboxed extension on some macOS versions and isn't
+# critical for a Spacebar preview. reader.js already no-ops mermaid
+# blocks when window.mermaid is absent.
 cp -R Resources/web "$EXT_BUNDLE/Contents/Resources/web"
+rm -f "$EXT_BUNDLE/Contents/Resources/web/vendor/mermaid.min.js"
+/usr/bin/sed -i '' '/mermaid\.min\.js/d' "$EXT_BUNDLE/Contents/Resources/web/reader.html"
 
 cat > "$EXT_BUNDLE/Contents/Info.plist" <<EXTPLIST
 <?xml version="1.0" encoding="UTF-8"?>

